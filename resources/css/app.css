@@ -17,7 +17,7 @@
     }
 
     .expense-sidebar {
-        @apply border-r border-[#2f2922] bg-[#1f1b16] text-[#fff8ef] dark:border-[#2f2922] dark:bg-[#1f1b16];
+        @apply fixed inset-y-0 left-0 z-30 w-72 flex-col gap-6 border-r border-[#2f2922] bg-[#1f1b16] px-5 py-6 text-[#fff8ef] dark:border-[#2f2922] dark:bg-[#1f1b16];
     }
 
     .expense-sidebar *,

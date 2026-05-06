@@ -16,9 +16,7 @@
 <body class="font-sans antialiased">
 <div class="app-workspace">
 
-    <flux:sidebar sticky stashable class="expense-sidebar hidden lg:flex">
-        <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
-
+    <aside class="expense-sidebar hidden lg:flex">
         <flux:brand href="/dashboard" name="Expense Tracker" class="px-2" />
         <div class="px-2 text-xs font-semibold uppercase tracking-wide text-[#d8b99a]">
             Control Room
@@ -59,13 +57,13 @@
                 </form>
             </flux:menu>
         </flux:dropdown>
-    </flux:sidebar>
+    </aside>
 
     <div class="lg:hidden">
         <livewire:layout.navigation />
     </div>
 
-    <main class="app-main lg:pl-72">
+    <main class="app-main lg:ml-72">
         {{ $slot }}
     </main>
 

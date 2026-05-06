@@ -123,9 +123,10 @@ class extends Component {
                     <div class="metric-label">Jumlah bulan ni</div>
                     <div class="mt-2 text-lg font-semibold text-zinc-950 dark:text-white">RM {{ number_format($monthTotal, 2) }}</div>
                 </div>
-                <flux:button variant="primary" icon="plus" wire:click="openCreate">
+                <button type="button" wire:click="openCreate" class="inline-flex items-center justify-center gap-2 rounded-lg bg-[#c26b50] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[#a85a43] focus:outline-none focus:ring-2 focus:ring-[#c26b50] focus:ring-offset-2 focus:ring-offset-[#fffaf2] dark:focus:ring-offset-[#211d18]">
+                    <span class="text-base leading-none">+</span>
                     Tambah
-                </flux:button>
+                </button>
             </div>
         </div>
     </section>
