@@ -48,7 +48,7 @@
             </a>
         </nav>
 
-        <div class="mt-auto rounded-lg border border-[#3b332c] bg-[#181410] p-3">
+        <div class="mt-auto space-y-3 rounded-lg border border-[#3b332c] bg-[#181410] p-3">
             <a href="{{ route('profile.edit') }}" wire:navigate class="flex min-w-0 items-center gap-3">
                 <div class="flex size-10 shrink-0 items-center justify-center rounded-lg bg-[#fff8ef] text-sm font-semibold text-[#9a4f39]">
                     {{ collect(explode(' ', auth()->user()->name ?? 'Guest'))->map(fn ($part) => mb_substr($part, 0, 1))->take(2)->implode('') }}
@@ -58,6 +58,17 @@
                     <div class="truncate text-xs text-[#d8b99a]">{{ auth()->user()->email ?? '' }}</div>
                 </div>
             </a>
+
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="flex w-full items-center justify-center gap-2 rounded-lg border border-[#4a3d32] px-3 py-2 text-sm font-semibold text-[#f7eadb] transition hover:border-[#d8b99a] hover:bg-white/10 hover:text-white">
+                    <svg viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 7V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2v-2" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 12h10m0 0-3-3m3 3-3 3" />
+                    </svg>
+                    <span>Log keluar</span>
+                </button>
+            </form>
         </div>
     </aside>
 

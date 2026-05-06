@@ -201,28 +201,72 @@ class extends Component {
         {{ $expenses->links() }}
     </div>
 
-    <flux:modal name="expense-form" wire:model.self="showModal" class="md:w-[500px]">
-        <div class="space-y-4">
-            <div>
-                <flux:heading size="lg">{{ $editingId ? 'Edit' : 'Tambah' }} Perbelanjaan</flux:heading>
-                <flux:text class="text-sm text-zinc-500">Simpan butiran ledger dengan cepat dan kemas.</flux:text>
-            </div>
+    @if($showModal)
+        <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 py-6 backdrop-blur-sm" role="dialog" aria-modal="true">
+            <div class="w-full max-w-2xl overflow-hidden rounded-lg border border-[#3c342b] bg-[#211d18] text-zinc-100 shadow-2xl shadow-black/40">
+                <div class="flex items-start justify-between gap-4 border-b border-[#3c342b] px-5 py-4">
+                    <div>
+                        <div class="text-xs font-semibold uppercase tracking-wide text-[#f0b38f]">
+                            Expense entry
+                        </div>
+                        <h2 class="mt-1 text-xl font-semibold text-white">{{ $editingId ? 'Edit' : 'Tambah' }} Perbelanjaan</h2>
+                        <p class="mt-1 text-sm text-zinc-400">Simpan butiran ledger dengan cepat dan kemas.</p>
+                    </div>
+                    <button type="button" wire:click="$set('showModal', false)" class="rounded-lg border border-[#4a3d32] p-2 text-zinc-400 transition hover:bg-[#2a241e] hover:text-white" aria-label="Tutup">
+                        <svg viewBox="0 0 20 20" class="size-4" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path stroke-linecap="round" d="m5 5 10 10M15 5 5 15" />
+                        </svg>
+                    </button>
+                </div>
 
-            <flux:input wire:model="title" label="Tajuk" placeholder="cth: Petrol" />
-            <flux:input wire:model="amount" label="Jumlah (RM)" type="number" step="0.01" />
-            <flux:select wire:model="category_id" label="Kategori">
-                <flux:select.option value="">— Tiada —</flux:select.option>
-                @foreach($categories as $cat)
-                    <flux:select.option value="{{ $cat->id }}">{{ $cat->name }}</flux:select.option>
-                @endforeach
-            </flux:select>
-            <flux:input wire:model="expense_date" type="date" label="Tarikh" />
-            <flux:textarea wire:model="notes" label="Nota (optional)" rows="3" />
+                <div class="grid max-h-[72vh] gap-4 overflow-y-auto px-5 py-5">
+                    <div>
+                        <label for="expense-title" class="mb-1.5 block text-sm font-medium text-zinc-300">Tajuk</label>
+                        <input id="expense-title" wire:model="title" type="text" placeholder="cth: Petrol" class="w-full rounded-lg border-[#4a3d32] bg-[#171411] text-zinc-100 placeholder:text-zinc-500 focus:border-[#c26b50] focus:ring-[#c26b50]" />
+                        @error('title') <p class="mt-1 text-sm text-rose-400">{{ $message }}</p> @enderror
+                    </div>
 
-            <div class="flex gap-2 justify-end">
-                <flux:button variant="ghost" wire:click="$set('showModal', false)">Batal</flux:button>
-                <flux:button variant="primary" wire:click="save">Simpan</flux:button>
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        <div>
+                            <label for="expense-amount" class="mb-1.5 block text-sm font-medium text-zinc-300">Jumlah (RM)</label>
+                            <input id="expense-amount" wire:model="amount" type="number" step="0.01" class="w-full rounded-lg border-[#4a3d32] bg-[#171411] text-zinc-100 placeholder:text-zinc-500 focus:border-[#c26b50] focus:ring-[#c26b50]" />
+                            @error('amount') <p class="mt-1 text-sm text-rose-400">{{ $message }}</p> @enderror
+                        </div>
+
+                        <div>
+                            <label for="expense-date" class="mb-1.5 block text-sm font-medium text-zinc-300">Tarikh</label>
+                            <input id="expense-date" wire:model="expense_date" type="date" class="w-full rounded-lg border-[#4a3d32] bg-[#171411] text-zinc-100 focus:border-[#c26b50] focus:ring-[#c26b50]" />
+                            @error('expense_date') <p class="mt-1 text-sm text-rose-400">{{ $message }}</p> @enderror
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="expense-category" class="mb-1.5 block text-sm font-medium text-zinc-300">Kategori</label>
+                        <select id="expense-category" wire:model="category_id" class="w-full rounded-lg border-[#4a3d32] bg-[#171411] text-zinc-100 focus:border-[#c26b50] focus:ring-[#c26b50]">
+                            <option value="">Tiada kategori</option>
+                            @foreach($categories as $cat)
+                                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('category_id') <p class="mt-1 text-sm text-rose-400">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div>
+                        <label for="expense-notes" class="mb-1.5 block text-sm font-medium text-zinc-300">Nota <span class="text-zinc-500">(optional)</span></label>
+                        <textarea id="expense-notes" wire:model="notes" rows="3" class="w-full rounded-lg border-[#4a3d32] bg-[#171411] text-zinc-100 placeholder:text-zinc-500 focus:border-[#c26b50] focus:ring-[#c26b50]"></textarea>
+                        @error('notes') <p class="mt-1 text-sm text-rose-400">{{ $message }}</p> @enderror
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-end gap-2 border-t border-[#3c342b] bg-[#1b1713] px-5 py-4">
+                    <button type="button" wire:click="$set('showModal', false)" class="rounded-lg px-4 py-2 text-sm font-semibold text-zinc-300 transition hover:bg-white/10 hover:text-white">
+                        Batal
+                    </button>
+                    <button type="button" wire:click="save" class="rounded-lg bg-[#c26b50] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[#a85a43] focus:outline-none focus:ring-2 focus:ring-[#c26b50] focus:ring-offset-2 focus:ring-offset-[#1b1713]">
+                        Simpan
+                    </button>
+                </div>
             </div>
         </div>
-    </flux:modal>
+    @endif
 </div>

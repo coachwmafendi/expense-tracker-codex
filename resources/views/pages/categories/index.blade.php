@@ -115,20 +115,50 @@ class extends Component {
         </div>
     @endif
 
-    <flux:modal name="category-form" wire:model.self="showModal" class="md:w-96">
-        <div class="space-y-6">
-            <div>
-                <flux:heading size="lg">{{ $editingId ? 'Edit' : 'Tambah' }} Kategori</flux:heading>
-                <flux:text class="text-sm text-zinc-500">Pilih nama dan warna yang mudah dikenali.</flux:text>
-            </div>
+    @if($showModal)
+        <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 py-6 backdrop-blur-sm" role="dialog" aria-modal="true">
+            <div class="w-full max-w-lg overflow-hidden rounded-lg border border-[#3c342b] bg-[#211d18] text-zinc-100 shadow-2xl shadow-black/40">
+                <div class="flex items-start justify-between gap-4 border-b border-[#3c342b] px-5 py-4">
+                    <div>
+                        <div class="text-xs font-semibold uppercase tracking-wide text-[#f0b38f]">
+                            Category setup
+                        </div>
+                        <h2 class="mt-1 text-xl font-semibold text-white">{{ $editingId ? 'Edit' : 'Tambah' }} Kategori</h2>
+                        <p class="mt-1 text-sm text-zinc-400">Pilih nama dan warna yang mudah dikenali.</p>
+                    </div>
+                    <button type="button" wire:click="$set('showModal', false)" class="rounded-lg border border-[#4a3d32] p-2 text-zinc-400 transition hover:bg-[#2a241e] hover:text-white" aria-label="Tutup">
+                        <svg viewBox="0 0 20 20" class="size-4" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path stroke-linecap="round" d="m5 5 10 10M15 5 5 15" />
+                        </svg>
+                    </button>
+                </div>
 
-            <flux:input wire:model="name" label="Nama" placeholder="cth: Makanan" />
-            <flux:input wire:model="color" type="color" label="Warna" />
+                <div class="grid gap-4 px-5 py-5">
+                    <div>
+                        <label for="category-name" class="mb-1.5 block text-sm font-medium text-zinc-300">Nama</label>
+                        <input id="category-name" wire:model="name" type="text" placeholder="cth: Makanan" class="w-full rounded-lg border-[#4a3d32] bg-[#171411] text-zinc-100 placeholder:text-zinc-500 focus:border-[#c26b50] focus:ring-[#c26b50]" />
+                        @error('name') <p class="mt-1 text-sm text-rose-400">{{ $message }}</p> @enderror
+                    </div>
 
-            <div class="flex gap-2 justify-end">
-                <flux:button variant="ghost" wire:click="$set('showModal', false)">Batal</flux:button>
-                <flux:button variant="primary" wire:click="save">Simpan</flux:button>
+                    <div>
+                        <label for="category-color" class="mb-1.5 block text-sm font-medium text-zinc-300">Warna</label>
+                        <div class="flex items-center gap-3">
+                            <input id="category-color" wire:model="color" type="color" class="h-11 w-16 rounded-lg border border-[#4a3d32] bg-[#171411] p-1" />
+                            <input wire:model="color" type="text" class="min-w-0 flex-1 rounded-lg border-[#4a3d32] bg-[#171411] font-mono text-zinc-100 placeholder:text-zinc-500 focus:border-[#c26b50] focus:ring-[#c26b50]" />
+                        </div>
+                        @error('color') <p class="mt-1 text-sm text-rose-400">{{ $message }}</p> @enderror
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-end gap-2 border-t border-[#3c342b] bg-[#1b1713] px-5 py-4">
+                    <button type="button" wire:click="$set('showModal', false)" class="rounded-lg px-4 py-2 text-sm font-semibold text-zinc-300 transition hover:bg-white/10 hover:text-white">
+                        Batal
+                    </button>
+                    <button type="button" wire:click="save" class="rounded-lg bg-[#c26b50] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[#a85a43] focus:outline-none focus:ring-2 focus:ring-[#c26b50] focus:ring-offset-2 focus:ring-offset-[#1b1713]">
+                        Simpan
+                    </button>
+                </div>
             </div>
         </div>
-    </flux:modal>
+    @endif
 </div>
