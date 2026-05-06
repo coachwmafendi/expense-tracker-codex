@@ -1,0 +1,143 @@
+@import '../../vendor/livewire/flux/dist/flux.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@source '../../vendor/livewire/flux/stubs/**/*.blade.php';
+
+@layer components {
+    .app-workspace {
+        @apply min-h-screen bg-[#f6f1e8] text-zinc-950 antialiased dark:bg-[#171411] dark:text-zinc-100;
+    }
+
+    .app-main {
+        @apply px-4 py-5 sm:px-6 lg:px-8 lg:py-7;
+    }
+
+    .expense-sidebar {
+        @apply border-r border-[#2f2922] bg-[#1f1b16] text-[#fff8ef] dark:border-[#2f2922] dark:bg-[#1f1b16];
+    }
+
+    .expense-sidebar *,
+    .expense-mobile-header * {
+        @apply opacity-100;
+    }
+
+    .expense-sidebar [data-flux-brand],
+    .expense-sidebar [data-flux-brand] *,
+    .expense-sidebar [data-flux-profile],
+    .expense-sidebar [data-flux-profile] * {
+        color: #fff8ef !important;
+    }
+
+    .expense-sidebar [data-flux-navlist-item],
+    .expense-sidebar nav a,
+    .expense-sidebar nav button {
+        color: #f7eadb !important;
+    }
+
+    .expense-sidebar [data-flux-navlist-item] svg,
+    .expense-sidebar nav svg {
+        color: #efc29a !important;
+    }
+
+    .expense-sidebar [data-flux-navlist-item]:hover,
+    .expense-sidebar nav a:hover,
+    .expense-sidebar nav button:hover {
+        @apply bg-white/10 text-white;
+    }
+
+    .expense-sidebar [data-current],
+    .expense-sidebar [aria-current='page'] {
+        @apply bg-[#fff8ef] text-[#9a4f39] shadow-sm shadow-black/20;
+    }
+
+    .expense-sidebar [data-current],
+    .expense-sidebar [data-current] *,
+    .expense-sidebar [aria-current='page'],
+    .expense-sidebar [aria-current='page'] * {
+        color: #9a4f39 !important;
+    }
+
+    .expense-mobile-header {
+        @apply border-b border-[#2f2922] bg-[#1f1b16] text-[#fff8ef] dark:border-[#2f2922] dark:bg-[#1f1b16];
+    }
+
+    .page-stack {
+        @apply w-full space-y-6;
+    }
+
+    .page-hero {
+        @apply overflow-hidden rounded-lg border border-[#e6dccb] bg-[#fffaf2] p-5 shadow-sm sm:p-6 dark:border-[#3c342b] dark:bg-[#211d18];
+    }
+
+    .page-hero-kicker {
+        @apply mb-3 inline-flex items-center rounded-full border border-[#e4d5bf] bg-[#f7eddf] px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[#8c5b38] dark:border-[#574636] dark:bg-[#2b251e] dark:text-[#f0b38f];
+    }
+
+    .page-hero-title {
+        @apply text-2xl font-semibold tracking-tight text-zinc-950 sm:text-3xl dark:text-white;
+    }
+
+    .page-hero-copy {
+        @apply mt-2 max-w-3xl text-sm leading-6 text-zinc-600 dark:text-zinc-300;
+    }
+
+    .metric-card {
+        @apply rounded-lg border border-[#e6dccb] bg-white p-4 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-[#d5c4ad] hover:shadow-md dark:border-[#3c342b] dark:bg-[#211d18] dark:hover:border-[#5c4d3e];
+    }
+
+    .metric-label {
+        @apply text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400;
+    }
+
+    .metric-value {
+        @apply mt-2 text-3xl font-semibold tracking-tight text-zinc-950 dark:text-white;
+    }
+
+    .app-card {
+        @apply overflow-hidden rounded-lg border border-[#e6dccb] bg-white shadow-sm dark:border-[#3c342b] dark:bg-[#211d18];
+    }
+
+    .app-card-padded {
+        @apply rounded-lg border border-[#e6dccb] bg-white p-5 shadow-sm dark:border-[#3c342b] dark:bg-[#211d18];
+    }
+
+    .app-card-header {
+        @apply border-b border-[#eee3d2] px-5 py-4 dark:border-[#3c342b];
+    }
+
+    .app-soft-panel {
+        @apply rounded-lg border border-[#eadfce] bg-[#fbf5ec] p-4 dark:border-[#3c342b] dark:bg-[#1b1713];
+    }
+
+    .app-table {
+        @apply min-w-full divide-y divide-[#eee3d2] text-sm dark:divide-[#3c342b];
+    }
+
+    .app-table-head {
+        @apply bg-[#fbf5ec] text-left text-xs uppercase tracking-wide text-zinc-500 dark:bg-[#1b1713] dark:text-zinc-400;
+    }
+
+    .app-table-th {
+        @apply px-5 py-3 font-semibold;
+    }
+
+    .app-table-body {
+        @apply divide-y divide-[#f0e7da] dark:divide-[#332b23];
+    }
+
+    .app-table-row {
+        @apply transition hover:bg-[#fbf5ec] dark:hover:bg-[#2a241e];
+    }
+
+    .empty-state {
+        @apply flex flex-col items-center justify-center gap-3 px-5 py-12 text-center;
+    }
+
+    .empty-state-icon {
+        @apply rounded-full border border-[#eadfce] bg-[#fbf5ec] p-3 text-[#c26b50] dark:border-[#3c342b] dark:bg-[#1b1713] dark:text-[#f0b38f];
+    }
+}
